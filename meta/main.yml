@@ -1,0 +1,35 @@
+galaxy_info:
+  role_name: gvm
+  author: devetek
+  namespace: staticdev
+  description: Ansible Galaxy role for gvm.
+  company: Devetek
+  license: MIT
+  min_ansible_version: "2.11"
+
+  platforms:
+    - name: macOS
+      versions:
+        - Ventura
+        - Sierra
+
+    - name: Debian
+      versions:
+        - bookworm
+        - bullseye
+        - buster
+
+    - name: Ubuntu
+      versions:
+        - noble
+        - jammy
+        - focal
+
+galaxy_tags:
+    - development
+    - gvm
+    - golang
+    - system
+    - workstation
+
+dependencies: []

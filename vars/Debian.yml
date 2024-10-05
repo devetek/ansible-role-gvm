@@ -1,0 +1,10 @@
+repo_software_package:
+  - curl
+  - git
+  - mercurial
+  - make
+  - binutils
+  - bison
+  - gcc
+  - build-essential
+  - bsdmainutils

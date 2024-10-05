@@ -1,0 +1,7 @@
+repo_software_package:
+  - curl
+  - git
+  - make
+  - bison
+  - gcc
+  - glibc-devel

@@ -1,0 +1,6 @@
+---
+- name: Install development packages necessary for building Golang
+  community.general.homebrew:
+    name: "{{ repo_software_package }}"
+    state: present
+  become: false

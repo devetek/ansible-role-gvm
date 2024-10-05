@@ -1,0 +1,20 @@
+---
+# create variables for specific os family
+- name: Include OS dependency variables
+  include_vars: "{{ item }}"
+  with_first_found:
+    - "{{ ansible_os_family }}.yml"
+
+- name: Install prerequisites packages for {{ ansible_os_family }}.
+  include_tasks: "{{ ansible_os_family }}.yml"
+
+- name: Install gvm on user level.
+  ansible.builtin.import_tasks: install.yml
+  become: true
+  become_user: "{{ gvm_owner }}"
+  when: gvm_env == "user"
+
+- name: Install gvm on system level.
+  ansible.builtin.import_tasks: install.yml
+  become: true
+  when: gvm_env == "system"

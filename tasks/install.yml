@@ -1,0 +1,27 @@
+---
+- name: Download gvm script installer
+  ansible.builtin.get_url:
+    url: "{{ gvm_script_installer }}"
+    dest: "{{ gvm_destination }}/gvm-install.sh"
+    mode: u+rwx,g=,o=
+
+- name: Install gvm
+  ansible.builtin.shell: "{{ gvm_destination }}/gvm-install.sh {{ gvm_repo_branch }} {{ gvm_destination }}"
+  register: output
+  changed_when: "output.rc == 0"
+  args:
+    executable: /bin/bash
+  environment:
+    GVM_NO_UPDATE_PROFILE: "{{ gmv_no_update_profile }}"
+
+- name: Manual update profile config
+  ansible.builtin.template:
+    src: "gvm.sh.j2"
+    dest: "{{ gvm_manual_update_profile_file }}"
+  when: output.rc == 0 and gmv_no_update_profile != ''
+
+- name: Remove gvm script installer
+  ansible.builtin.file:
+    path: "{{ gvm_destination }}/gvm-install.sh"
+    state: absent
+  when: output.rc == 0

@@ -1,0 +1,20 @@
+---
+# defaults gvm source
+gvm_env: 'user' # use 'user' for local user installation or 'system' for global installation 
+gvm_repo_host: 'https://raw.githubusercontent.com' # use default gvm repository
+gvm_repo_owner: 'moovweb' # default repo owner
+gvm_repo_name: 'gvm' # default repo name
+gvm_repo_branch: 'master' # default repo branch
+gvm_script_installer: '{{ gvm_repo_host }}/{{ gvm_repo_owner }}/{{ gvm_repo_name }}/{{ gvm_repo_branch }}/binscripts/gvm-installer' # default manual installer script
+
+# defaults gvm destination, use '$HOME' for local user installation or use custom global e.g: '/usr/local'
+gvm_destination: '$HOME' # default use ansible user home
+gvm_owner: '{{ ansible_facts.user_id }}' # default to use ansible fact user
+gvm_owner_group: '{{ gvm_owner }}' # default to use ansible fact user
+
+# default config for gvm
+gmv_no_update_profile: '' # if you set with any value, profile config will not auto update
+
+# profile config if gmv_no_update_profile is true
+gvm_manual_update_profile_file: '/etc/profile.d/gvm.sh' # create custom bash if `gmv_no_update_profile` not empty
+gvm_manual_update_profile_content: '[[ -s "{{ gvm_destination }}/gvm/scripts/gvm" ]] && source "{{ gvm_destination }}/gvm/scripts/gvm"' # create custom content to `gvm_manual_update_profile_file`
