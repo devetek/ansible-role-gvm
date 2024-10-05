@@ -1,7 +1,7 @@
 galaxy_info:
   role_name: gvm
-  author: devetek
-  namespace: staticdev
+  author: prakasa1904
+  namespace: terpusat
   description: Ansible Galaxy role for gvm.
   company: Devetek
   license: MIT
