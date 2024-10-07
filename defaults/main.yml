@@ -18,3 +18,6 @@ gmv_no_update_profile: '' # if you set with any value, profile config will not a
 # profile config if gmv_no_update_profile is true
 gvm_manual_update_profile_file: '/etc/profile.d/gvm.sh' # create custom bash if `gmv_no_update_profile` not empty
 gvm_manual_update_profile_content: '[[ -s "{{ gvm_destination }}/gvm/scripts/gvm" ]] && source "{{ gvm_destination }}/gvm/scripts/gvm"' # create custom content to `gvm_manual_update_profile_file`
+
+# default golang version config
+gvm_go_version: 'go1.22.8'

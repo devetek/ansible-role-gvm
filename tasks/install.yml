@@ -5,23 +5,30 @@
     dest: "{{ gvm_destination }}/gvm-install.sh"
     mode: u+rwx,g=,o=
 
+- name: Check if gvm already installed
+  stat:
+    path: "{{ gvm_destination }}"
+  register: is_exist
+
 - name: Install gvm
   ansible.builtin.shell: "{{ gvm_destination }}/gvm-install.sh {{ gvm_repo_branch }} {{ gvm_destination }}"
   register: output
   changed_when: "output.rc == 0"
-  args:
-    executable: /bin/bash
   environment:
     GVM_NO_UPDATE_PROFILE: "{{ gmv_no_update_profile }}"
+  when: not is_exist.stat.exists
 
 - name: Manual update profile config
   ansible.builtin.template:
     src: "gvm.sh.j2"
     dest: "{{ gvm_manual_update_profile_file }}"
-  when: output.rc == 0 and gmv_no_update_profile != ''
+  when: gmv_no_update_profile != ''
 
 - name: Remove gvm script installer
   ansible.builtin.file:
     path: "{{ gvm_destination }}/gvm-install.sh"
     state: absent
-  when: output.rc == 0
+
+
+- name: Install golang version
+  ansible.builtin.shell: "exec $SHELL -l && gvm install {{ gvm_go_version }} -B"
